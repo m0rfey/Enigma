@@ -1,5 +1,6 @@
 .idea/
 __pycache__/
+conf.config
 gui_test2.py
 ui_testQt.py
 ui_testQt2.py
