@@ -1,7 +1,7 @@
 .idea/
 __pycache__/
 gui_test2.py
-ui_testQt
+ui_testQt.py
 ui_testQt2.py
 update.txt
 testQt.ui

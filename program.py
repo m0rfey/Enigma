@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from PyQt4 import QtCore, QtGui, uic
-import sys, ui_testQt
+import sys, ui_window
 
 class MyWindow(QtGui.QWidget):
     def __init__(self, parent=None):
         QtGui.QWidget.__init__(self, parent)
-        self.ui = ui_testQt.Ui_Enigma()
+        self.ui = ui_window.Ui_Enigma()
         self.ui.setupUi(self)
 
         self.file = open('conf.config')
