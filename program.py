@@ -187,7 +187,7 @@ class MyWindow(QtGui.QWidget):
 
     ''' Save settings to file '''
     def SaveSetings(self, k):
-        f = open('conf.config', "w", encoding="utf-8")
+        f = open('.config', "w", encoding="utf-8")
         for z in k:
             f.write(str("%s\n" % z))
         f.close()
