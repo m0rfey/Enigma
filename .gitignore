@@ -1,5 +1,6 @@
 .idea/
 __pycache__/
+build/
 conf.config
 gui_test2.py
 ui_testQt.py
@@ -7,3 +8,7 @@ ui_testQt2.py
 update.txt
 testQt.ui
 testQt2.ui
+program.py
+setup.py
+setup2.py
+ui_window

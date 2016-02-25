@@ -7,6 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt4 import QtCore, QtGui
+import sys, os
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -22,7 +23,8 @@ except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
 
-class Ui_Enigma(object):
+
+class Ui_Enigma(QtGui.QWidget):
     def setupUi(self, Enigma):
         Enigma.setObjectName(_fromUtf8("Enigma"))
         Enigma.setWindowModality(QtCore.Qt.WindowModal)
@@ -129,8 +131,6 @@ class Ui_Enigma(object):
         self.verticalLayout_2 = QtGui.QVBoxLayout(self.layoutWidget3)
         self.verticalLayout_2.setObjectName(_fromUtf8("verticalLayout_2"))
         self.radioButton_manually = QtGui.QRadioButton(self.layoutWidget3)
-        self.radioButton_manually.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
-        self.radioButton_manually.setAutoFillBackground(True)
         self.radioButton_manually.setChecked(True)
         self.radioButton_manually.setObjectName(_fromUtf8("radioButton_manually"))
         self.verticalLayout_2.addWidget(self.radioButton_manually)
@@ -140,6 +140,7 @@ class Ui_Enigma(object):
         self.pushButton_generate = QtGui.QPushButton(self.groupBox)
         self.pushButton_generate.setGeometry(QtCore.QRect(20, 100, 181, 23))
         self.pushButton_generate.setObjectName(_fromUtf8("pushButton_generate"))
+        self.pushButton_generate.setDisabled(True)
         self.layoutWidget4 = QtGui.QWidget(self.tab_2_seting)
         self.layoutWidget4.setGeometry(QtCore.QRect(220, 0, 671, 640))
         self.layoutWidget4.setObjectName(_fromUtf8("layoutWidget4"))
@@ -873,8 +874,14 @@ class Ui_Enigma(object):
 
         self.retranslateUi(Enigma)
         self.tabWidget.setCurrentIndex(2)
+        QtCore.QObject.connect(self.radioButton_manually, QtCore.SIGNAL(_fromUtf8("clicked()")), self.manualiti)
+        QtCore.QObject.connect(self.radioButton_auto, QtCore.SIGNAL(_fromUtf8("clicked()")), self.auto_gen)
         QtCore.QObject.connect(self.pushButton_exit, QtCore.SIGNAL(_fromUtf8("clicked()")), Enigma.close)
-        QtCore.QObject.connect(self.radioButton_manually, QtCore.SIGNAL(_fromUtf8("clicked()")), self.pushButton_generate.showMenu)
+        QtCore.QObject.connect(self.pushButton_save, QtCore.SIGNAL(_fromUtf8("clicked()")), self.create_file)
+        QtCore.QObject.connect(self.spinBox_quantity_symbol, QtCore.SIGNAL(_fromUtf8("valueChanged(int)")), self.lokomotiv)
+        QtCore.QObject.connect(self.comboBox_lang, QtCore.SIGNAL(_fromUtf8("currentIndexChanged(int)")), self.symbols)
+        QtCore.QObject.connect(self.pushButton_encrypt, QtCore.SIGNAL(_fromUtf8("clicked()")), self.encrypt)
+        QtCore.QObject.connect(self.pushButton_decrypt, QtCore.SIGNAL(_fromUtf8("clicked()")), self.decrypt)
         QtCore.QMetaObject.connectSlotsByName(Enigma)
 
     def retranslateUi(self, Enigma):
@@ -956,3 +963,427 @@ class Ui_Enigma(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2_seting), _translate("Enigma", "Настройка", None))
         self.pushButton_exit.setText(_translate("Enigma", "Выход", None))
 
+
+    def __init__(self, parent=None):
+        QtGui.QWidget.__init__(self, parent)
+        self.setupUi(self)
+
+        self.directory =os.path.dirname('config/')
+        self.name_file ='.config'
+
+        self.file = open(self.directory +'/'+ self.name_file)
+        self.spp = []
+
+        default_lang = 0
+        default_len = 2
+
+        self.lokomotiv(default_len)
+
+        self.option = default_lang
+        self.symbols(default_lang)
+        self.spinBox_quantity_symbol.setProperty('value', default_len)
+
+    '''Quantity symbol'''
+    def lokomotiv(self, value):
+        value = self.spinBox_quantity_symbol.value()
+
+        self.lineEdit_num_0.setMaxLength(int(value))
+        self.lineEdit_num_1.setMaxLength(int(value))
+        self.lineEdit_num_2.setMaxLength(int(value))
+        self.lineEdit_num_3.setMaxLength(int(value))
+        self.lineEdit_num_4.setMaxLength(int(value))
+        self.lineEdit_num_5.setMaxLength(int(value))
+        self.lineEdit_num_6.setMaxLength(int(value))
+        self.lineEdit_num_7.setMaxLength(int(value))
+        self.lineEdit_num_8.setMaxLength(int(value))
+        self.lineEdit_num_9.setMaxLength(int(value))
+
+        self.lineEdit_0.setMaxLength(int(value))
+        self.lineEdit_1.setMaxLength(int(value))
+        self.lineEdit_2.setMaxLength(int(value))
+        self.lineEdit_3.setMaxLength(int(value))
+        self.lineEdit_4.setMaxLength(int(value))
+        self.lineEdit_5.setMaxLength(int(value))
+        self.lineEdit_6.setMaxLength(int(value))
+        self.lineEdit_7.setMaxLength(int(value))
+        self.lineEdit_8.setMaxLength(int(value))
+        self.lineEdit_9.setMaxLength(int(value))
+        self.lineEdit_10.setMaxLength(int(value))
+        self.lineEdit_11.setMaxLength(int(value))
+        self.lineEdit_12.setMaxLength(int(value))
+        self.lineEdit_13.setMaxLength(int(value))
+        self.lineEdit_14.setMaxLength(int(value))
+        self.lineEdit_15.setMaxLength(int(value))
+        self.lineEdit_16.setMaxLength(int(value))
+        self.lineEdit_17.setMaxLength(int(value))
+        self.lineEdit_18.setMaxLength(int(value))
+        self.lineEdit_19.setMaxLength(int(value))
+        self.lineEdit_20.setMaxLength(int(value))
+        self.lineEdit_21.setMaxLength(int(value))
+        self.lineEdit_22.setMaxLength(int(value))
+        self.lineEdit_23.setMaxLength(int(value))
+        self.lineEdit_24.setMaxLength(int(value))
+        self.lineEdit_25.setMaxLength(int(value))
+        self.lineEdit_26.setMaxLength(int(value))
+        self.lineEdit_27.setMaxLength(int(value))
+        self.lineEdit_28.setMaxLength(int(value))
+        self.lineEdit_29.setMaxLength(int(value))
+        self.lineEdit_30.setMaxLength(int(value))
+        self.lineEdit_31.setMaxLength(int(value))
+        self.lineEdit_32.setMaxLength(int(value))
+
+        self.lineEdit_sym_0.setMaxLength(int(value))
+        self.lineEdit_sym_1.setMaxLength(int(value))
+        self.lineEdit_sym_2.setMaxLength(int(value))
+        self.lineEdit_sym_3.setMaxLength(int(value))
+        self.lineEdit_sym_4.setMaxLength(int(value))
+        self.lineEdit_sym_5.setMaxLength(int(value))
+        self.lineEdit_sym_6.setMaxLength(int(value))
+        self.lineEdit_sym_7.setMaxLength(int(value))
+        self.lineEdit_sym_8.setMaxLength(int(value))
+        self.lineEdit_sym_9.setMaxLength(int(value))
+
+    '''Create file'''
+    def create_file(self):
+        #self.emit = QtGui.QFileDialog.getSaveFileName(parent = None)
+        self.k = []
+        n = [self.lineEdit_num_0.text(),
+             self.lineEdit_num_1.text(),
+             self.lineEdit_num_2.text(),
+             self.lineEdit_num_3.text(),
+             self.lineEdit_num_4.text(),
+             self.lineEdit_num_5.text(),
+             self.lineEdit_num_6.text(),
+             self.lineEdit_num_7.text(),
+             self.lineEdit_num_8.text(),
+             self.lineEdit_num_9.text()]
+
+        b = [self.lineEdit_0.text(),self.lineEdit_1.text(),self.lineEdit_2.text(),self.lineEdit_3.text(),
+             self.lineEdit_4.text(),self.lineEdit_5.text(),self.lineEdit_6.text(),self.lineEdit_7.text(),
+             self.lineEdit_8.text(),self.lineEdit_9.text(),self.lineEdit_10.text(),self.lineEdit_11.text(),
+             self.lineEdit_12.text(),self.lineEdit_13.text(),self.lineEdit_14.text(),self.lineEdit_15.text(),
+             self.lineEdit_16.text(),self.lineEdit_17.text(),self.lineEdit_18.text(),self.lineEdit_19.text(),
+             self.lineEdit_20.text(),self.lineEdit_21.text(),self.lineEdit_22.text(),self.lineEdit_23.text(),
+             self.lineEdit_24.text(),self.lineEdit_25.text(),self.lineEdit_26.text(),self.lineEdit_27.text(),
+             self.lineEdit_28.text(),self.lineEdit_29.text(),self.lineEdit_30.text(),self.lineEdit_31.text(),
+             self.lineEdit_32.text()]
+
+        s = [self.lineEdit_sym_0.text(),self.lineEdit_sym_1.text(),self.lineEdit_sym_2.text(),self.lineEdit_sym_3.text(),self.lineEdit_sym_4.text(),
+             self.lineEdit_sym_5.text(),self.lineEdit_sym_6.text(),self.lineEdit_sym_7.text(),self.lineEdit_sym_8.text(),self.lineEdit_sym_9.text()]
+
+        for bi in b:
+            if not bi:
+                pass
+            else:
+                self.k.append(bi)
+        for ni in n:
+            if not ni:
+                pass
+            else:
+                self.k.append(ni)
+        for si in s:
+            if not si:
+                pass
+            else:
+                self.k.append(si)
+
+        self.SaveSetings(self.k)
+
+    def symbols(self, option):
+        self.option = self.comboBox_lang.currentIndex()
+
+        if self.option == 0:
+            self.name_lan= 'ua'
+            self.trol = open(self.directory + '/' + 'ua' + self.name_file)
+            for ex in self.trol.readlines():
+                self.spp.append(ex)
+            print('UA')
+            symbol_ua = ['а', 'б', 'в', 'г', 'ґ', 'д', 'е', 'є', 'ж', 'з', 'и', 'і', 'ї', 'й', 'к', 'л',
+                         'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ь', 'ю',
+                         'я', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ' ', '!', '?', ',', '.', ':', ';',
+                         '(', ')', '@', "'", '\n']
+            self.symbol = symbol_ua
+
+            self.lineEdit_26.setDisabled(False)
+            self.lineEdit_27.setDisabled(False)
+            self.lineEdit_28.setDisabled(False)
+            self.lineEdit_29.setDisabled(False)
+            self.lineEdit_30.setDisabled(False)
+            self.lineEdit_31.setDisabled(False)
+            self.lineEdit_32.setDisabled(False)
+
+            self.label_0.setText((symbol_ua[0]+':').upper()),self.label_1.setText((symbol_ua[1]+':').upper())
+            self.label_2.setText((symbol_ua[2]+':').upper()),self.label_3.setText((symbol_ua[3]+':').upper())
+            self.label_4.setText((symbol_ua[4]+':').upper()),self.label_5.setText((symbol_ua[5]+':').upper())
+            self.label_6.setText((symbol_ua[6]+':').upper()),self.label_7.setText((symbol_ua[7]+':').upper())
+            self.label_8.setText((symbol_ua[8]+':').upper()),self.label_9.setText((symbol_ua[9]+':').upper())
+            self.label_10.setText((symbol_ua[10]+':').upper()),self.label_11.setText((symbol_ua[11]+':').upper())
+            self.label_12.setText((symbol_ua[12]+':').upper()),self.label_13.setText((symbol_ua[13]+':').upper())
+            self.label_14.setText((symbol_ua[14]+':').upper()),self.label_15.setText((symbol_ua[15]+':').upper())
+            self.label_16.setText((symbol_ua[16]+':').upper()),self.label_17.setText((symbol_ua[17]+':').upper())
+            self.label_18.setText((symbol_ua[18]+':').upper()),self.label_19.setText((symbol_ua[19]+':').upper())
+            self.label_20.setText((symbol_ua[20]+':').upper()), self.label_21.setText((symbol_ua[21]+':').upper())
+            self.label_22.setText((symbol_ua[22]+':').upper()),self.label_23.setText((symbol_ua[23]+':').upper())
+            self.label_24.setText((symbol_ua[24]+':').upper()),self.label_25.setText((symbol_ua[25]+':').upper())
+            self.label_26.setText((symbol_ua[26]+':').upper()),self.label_27.setText((symbol_ua[27]+':').upper())
+            self.label_28.setText((symbol_ua[28]+':').upper()),self.label_29.setText((symbol_ua[29]+':').upper())
+            self.label_30.setText((symbol_ua[30]+':').upper()),self.label_31.setText((symbol_ua[31]+':').upper())
+            self.label_32.setText((symbol_ua[32]+':').upper()),self.label_num_0.setText(symbol_ua[33]+':')
+            self.label_num_1.setText(symbol_ua[34]+':'),self.label_num_2.setText(symbol_ua[35]+':')
+            self.label_num_3.setText(symbol_ua[36]+':'),self.label_num_4.setText(symbol_ua[37]+':')
+            self.label_num_5.setText(symbol_ua[38]+':'),self.label_num_6.setText(symbol_ua[39]+':')
+            self.label_num_7.setText(symbol_ua[40]+':'),self.label_num_8.setText(symbol_ua[41]+':')
+            self.label_num_9.setText(symbol_ua[42]+':'),self.label_sym_0.setText(symbol_ua[43]+':')
+            self.label_sym_1.setText(symbol_ua[44]+':'),self.label_sym_2.setText(symbol_ua[45]+':')
+            self.label_sym_3.setText(symbol_ua[46]+':'),self.label_sym_4.setText(symbol_ua[47]+':')
+            self.label_sym_5.setText(symbol_ua[48]+':'),self.label_sym_6.setText(symbol_ua[49]+':')
+            self.label_sym_7.setText(symbol_ua[50]+':'),self.label_sym_8.setText(symbol_ua[51]+':')
+            self.label_sym_9.setText(symbol_ua[52]+':'),self.label_sym_10.setText(symbol_ua[53]+':')
+            self.label_sym_11.setText('/n:')
+
+        elif self.option == 1:
+            self.name_lan = 'en'
+            self.trol = open(self.directory + '/' + 'en' + self.name_file)
+            for ex in self.trol.readlines():
+                self.spp.append(ex)
+            print('EU')
+            symbol_en = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
+                         'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+                         '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ' ', '!', '?', ',', '.', ':', ';', '(', ')', '@', "'", '\n']
+            self.symbol = symbol_en
+
+            self.label_26.setText(''),self.label_27.setText('')
+            self.label_28.setText(''),self.label_29.setText('')
+            self.label_30.setText(''),self.label_31.setText('')
+            self.label_32.setText(''),self.lineEdit_26.setDisabled(True)
+            self.lineEdit_27.setDisabled(True),self.lineEdit_28.setDisabled(True)
+            self.lineEdit_29.setDisabled(True),self.lineEdit_30.setDisabled(True)
+            self.lineEdit_31.setDisabled(True),self.lineEdit_32.setDisabled(True)
+
+            self.label_0.setText((symbol_en[0]+':').upper()),self.label_1.setText((symbol_en[1]+':').upper())
+            self.label_2.setText((symbol_en[2]+':').upper()),self.label_3.setText((symbol_en[3]+':').upper())
+            self.label_4.setText((symbol_en[4]+':').upper()),self.label_5.setText((symbol_en[5]+':').upper())
+            self.label_6.setText((symbol_en[6]+':').upper()),self.label_7.setText((symbol_en[7]+':').upper())
+            self.label_8.setText((symbol_en[8]+':').upper()),self.label_9.setText((symbol_en[9]+':').upper())
+            self.label_10.setText((symbol_en[10]+':').upper()),self.label_11.setText((symbol_en[11]+':').upper())
+            self.label_12.setText((symbol_en[12]+':').upper()),self.label_13.setText((symbol_en[13]+':').upper())
+            self.label_14.setText((symbol_en[14]+':').upper()),self.label_15.setText((symbol_en[15]+':').upper())
+            self.label_16.setText((symbol_en[16]+':').upper()),self.label_17.setText((symbol_en[17]+':').upper())
+            self.label_18.setText((symbol_en[18]+':').upper()),self.label_19.setText((symbol_en[19]+':').upper())
+            self.label_20.setText((symbol_en[20]+':').upper()),self.label_21.setText((symbol_en[21]+':').upper())
+            self.label_22.setText((symbol_en[22]+':').upper()),self.label_23.setText((symbol_en[23]+':').upper())
+            self.label_24.setText((symbol_en[24]+':').upper()),self.label_25.setText((symbol_en[25]+':').upper())
+            self.label_num_0.setText(symbol_en[26]+':'),self.label_num_1.setText(symbol_en[27]+':')
+            self.label_num_2.setText(symbol_en[28]+':'),self.label_num_3.setText(symbol_en[29]+':')
+            self.label_num_4.setText(symbol_en[30]+':'),self.label_num_5.setText(symbol_en[31]+':')
+            self.label_num_6.setText(symbol_en[32]+':'),self.label_num_7.setText(symbol_en[33]+':')
+            self.label_num_8.setText(symbol_en[34]+':'),self.label_num_9.setText(symbol_en[35]+':')
+            self.label_sym_0.setText(symbol_en[36]+':'),self.label_sym_1.setText(symbol_en[37]+':')
+            self.label_sym_2.setText(symbol_en[38]+':'),self.label_sym_3.setText(symbol_en[39]+':')
+            self.label_sym_4.setText(symbol_en[40]+':'),self.label_sym_5.setText(symbol_en[41]+':')
+            self.label_sym_6.setText(symbol_en[42]+':'),self.label_sym_7.setText(symbol_en[43]+':')
+            self.label_sym_8.setText(symbol_en[44]+':'),self.label_sym_9.setText(symbol_en[45]+':')
+            self.label_sym_10.setText(symbol_en[46]+':'),self.label_sym_11.setText('/n:')
+
+        elif self.option == 2:
+            self.name_lan = 'ru'
+            self.trol = open(self.directory + '/' + 'ru' + self.name_file)
+            for ex in self.trol.readlines():
+                self.spp.append(ex)
+            print('RU')
+            symbol_ru = []
+            self.symbol = symbol_ru
+
+    def encrypt(self):
+        lst = []
+        file = open(self.directory +'/'+self.name_lan+ self.name_file)
+        text_encrypt = self.textEdit_input_encrypt.toPlainText()
+        if not text_encrypt:
+            self.textEdit_input_encrypt.setStyleSheet("color: rgb(255, 0, 255);")
+            self.textEdit_input_encrypt.setPlainText('Error: Введите текст!')
+        else:
+            for line in file.readlines():
+                lst.append(line)
+
+        '''Шифрование текста'''
+        o_lst = []
+        for i in text_encrypt.lower():
+            for z in range(0, len(self.symbol)):
+                for l in self.symbol[z]:
+                    if i == l:
+                        o_lst.append(lst[z])
+        str_f = ''.join(o_lst).split()
+        '''Конец шифрования текста'''
+
+        '''Вывод шифрованого текста'''
+        self.textEdit_output_encrypt.setPlainText(''.join(str_f))
+        '''Конец вывода шифрованого текста'''
+
+    def decrypt(self):
+
+        self.text_decrypt = self.textEdit_input_decrypt.toPlainText()
+        if not self.text_decrypt:
+            self.textEdit_input_decrypt.setStyleSheet("color: rgb(255, 0, 255);")
+            self.textEdit_input_decrypt.setPlainText('Error: Введите текст!')
+        else:
+
+            self.bro = ''.join(self.spp).split()
+            t =[]
+
+            for j in [self.text_decrypt.lower()[i:i+self.spinBox_quantity_symbol.value()] for i in range(0, len(self.text_decrypt), self.spinBox_quantity_symbol.value())]:
+                for z in range(len(self.symbol)):
+                    for l in self.bro[z:z+1]:
+                        if j == l:
+                            t.append(self.symbol[z])
+
+            print(''.join(t))
+            self.textEdit_output_decrypt.setPlainText(''.join(t))
+
+    ''' Save settings to file '''
+    def SaveSetings(self, k):
+        if self.option == 0:
+            f = open(self.directory +'/'+ 'ua' + self.name_file, "w")#, encoding="utf-8")
+            for z in k:
+                f.write(str("%s\n" % z))
+            f.close()
+        elif self.option == 1:
+            f = open(self.directory +'/'+ 'en' + self.name_file, "w")#, encoding="utf-8")
+            for z in k:
+                f.write(str("%s\n" % z))
+            f.close()
+        elif self.option == 2:
+            f = open(self.directory +'/'+ 'ru' + self.name_file, "w")#, encoding="utf-8")
+            for z in k:
+                f.write(str("%s\n" % z))
+            f.close()
+        return
+
+
+    def manualiti(self):
+        self.pushButton_generate.setDisabled(True)
+        self.lineEdit_0.setDisabled(False)
+        self.lineEdit_1.setDisabled(False)
+        self.lineEdit_2.setDisabled(False)
+        self.lineEdit_3.setDisabled(False)
+        self.lineEdit_4.setDisabled(False)
+        self.lineEdit_5.setDisabled(False)
+        self.lineEdit_6.setDisabled(False)
+        self.lineEdit_7.setDisabled(False)
+        self.lineEdit_8.setDisabled(False)
+        self.lineEdit_9.setDisabled(False)
+        self.lineEdit_10.setDisabled(False)
+        self.lineEdit_11.setDisabled(False)
+        self.lineEdit_12.setDisabled(False)
+        self.lineEdit_13.setDisabled(False)
+        self.lineEdit_14.setDisabled(False)
+        self.lineEdit_15.setDisabled(False)
+        self.lineEdit_16.setDisabled(False)
+        self.lineEdit_17.setDisabled(False)
+        self.lineEdit_18.setDisabled(False)
+        self.lineEdit_19.setDisabled(False)
+        self.lineEdit_20.setDisabled(False)
+        self.lineEdit_21.setDisabled(False)
+        self.lineEdit_22.setDisabled(False)
+        self.lineEdit_23.setDisabled(False)
+        self.lineEdit_24.setDisabled(False)
+        self.lineEdit_25.setDisabled(False)
+        self.lineEdit_26.setDisabled(False)
+        self.lineEdit_27.setDisabled(False)
+        self.lineEdit_28.setDisabled(False)
+        self.lineEdit_29.setDisabled(False)
+        self.lineEdit_30.setDisabled(False)
+        self.lineEdit_31.setDisabled(False)
+        self.lineEdit_32.setDisabled(False)
+
+        self.lineEdit_num_0.setDisabled(False)
+        self.lineEdit_num_1.setDisabled(False)
+        self.lineEdit_num_2.setDisabled(False)
+        self.lineEdit_num_3.setDisabled(False)
+        self.lineEdit_num_4.setDisabled(False)
+        self.lineEdit_num_5.setDisabled(False)
+        self.lineEdit_num_6.setDisabled(False)
+        self.lineEdit_num_7.setDisabled(False)
+        self.lineEdit_num_8.setDisabled(False)
+        self.lineEdit_num_9.setDisabled(False)
+
+        self.lineEdit_sym_0.setDisabled(False)
+        self.lineEdit_sym_1.setDisabled(False)
+        self.lineEdit_sym_2.setDisabled(False)
+        self.lineEdit_sym_3.setDisabled(False)
+        self.lineEdit_sym_4.setDisabled(False)
+        self.lineEdit_sym_5.setDisabled(False)
+        self.lineEdit_sym_6.setDisabled(False)
+        self.lineEdit_sym_7.setDisabled(False)
+        self.lineEdit_sym_8.setDisabled(False)
+        self.lineEdit_sym_9.setDisabled(False)
+        self.lineEdit_sym_10.setDisabled(False)
+        self.lineEdit_sym_11.setDisabled(False)
+
+    def auto_gen(self):
+        self.pushButton_generate.setDisabled(False)
+        self.lineEdit_0.setDisabled(True)
+        self.lineEdit_1.setDisabled(True)
+        self.lineEdit_2.setDisabled(True)
+        self.lineEdit_3.setDisabled(True)
+        self.lineEdit_4.setDisabled(True)
+        self.lineEdit_5.setDisabled(True)
+        self.lineEdit_6.setDisabled(True)
+        self.lineEdit_7.setDisabled(True)
+        self.lineEdit_8.setDisabled(True)
+        self.lineEdit_9.setDisabled(True)
+        self.lineEdit_10.setDisabled(True)
+        self.lineEdit_11.setDisabled(True)
+        self.lineEdit_12.setDisabled(True)
+        self.lineEdit_13.setDisabled(True)
+        self.lineEdit_14.setDisabled(True)
+        self.lineEdit_15.setDisabled(True)
+        self.lineEdit_16.setDisabled(True)
+        self.lineEdit_17.setDisabled(True)
+        self.lineEdit_18.setDisabled(True)
+        self.lineEdit_19.setDisabled(True)
+        self.lineEdit_20.setDisabled(True)
+        self.lineEdit_21.setDisabled(True)
+        self.lineEdit_22.setDisabled(True)
+        self.lineEdit_23.setDisabled(True)
+        self.lineEdit_24.setDisabled(True)
+        self.lineEdit_25.setDisabled(True)
+        self.lineEdit_26.setDisabled(True)
+        self.lineEdit_27.setDisabled(True)
+        self.lineEdit_28.setDisabled(True)
+        self.lineEdit_29.setDisabled(True)
+        self.lineEdit_30.setDisabled(True)
+        self.lineEdit_31.setDisabled(True)
+        self.lineEdit_32.setDisabled(True)
+
+        self.lineEdit_num_0.setDisabled(True)
+        self.lineEdit_num_1.setDisabled(True)
+        self.lineEdit_num_2.setDisabled(True)
+        self.lineEdit_num_3.setDisabled(True)
+        self.lineEdit_num_4.setDisabled(True)
+        self.lineEdit_num_5.setDisabled(True)
+        self.lineEdit_num_6.setDisabled(True)
+        self.lineEdit_num_7.setDisabled(True)
+        self.lineEdit_num_8.setDisabled(True)
+        self.lineEdit_num_9.setDisabled(True)
+
+        self.lineEdit_sym_0.setDisabled(True)
+        self.lineEdit_sym_1.setDisabled(True)
+        self.lineEdit_sym_2.setDisabled(True)
+        self.lineEdit_sym_3.setDisabled(True)
+        self.lineEdit_sym_4.setDisabled(True)
+        self.lineEdit_sym_5.setDisabled(True)
+        self.lineEdit_sym_6.setDisabled(True)
+        self.lineEdit_sym_7.setDisabled(True)
+        self.lineEdit_sym_8.setDisabled(True)
+        self.lineEdit_sym_9.setDisabled(True)
+        self.lineEdit_sym_10.setDisabled(True)
+        self.lineEdit_sym_11.setDisabled(True)
+
+        def generate(self):
+            pass
+
+if __name__ == '__main__':
+    app = QtGui.QApplication(sys.argv)
+    window = Ui_Enigma()
+    window.show()
+    sys.exit(app.exec_())

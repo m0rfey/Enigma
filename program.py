@@ -22,9 +22,7 @@ class MyWindow(QtGui.QWidget):
 
         self.option = default_lang
         self.symbols(default_lang)
-        self.ui.spinBox_quantity_symbol.setProperty('value', 0)
-        for ex in self.file.readlines():
-            self.spp.append(ex)
+        self.ui.spinBox_quantity_symbol.setProperty('value', default_len)
 
         QtCore.QObject.connect(self.ui.pushButton_save, QtCore.SIGNAL("clicked()"), self.create_file)
         QtCore.QObject.connect(self.ui.spinBox_quantity_symbol, QtCore.SIGNAL("valueChanged(int)"), self.lokomotiv)
@@ -143,6 +141,10 @@ class MyWindow(QtGui.QWidget):
 
         if self.option == 0:
             self.name_lan= 'ua'
+            self.trol = open(self.directory + '/' + 'ua' + self.name_file)
+            for ex in self.trol.readlines():
+                self.spp.append(ex)
+
             print('UA')
             symbol_ua = ['а', 'б', 'в', 'г', 'ґ', 'д', 'е', 'є', 'ж', 'з', 'и', 'і', 'ї', 'й', 'к', 'л',
                          'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ь', 'ю',
@@ -189,6 +191,9 @@ class MyWindow(QtGui.QWidget):
 
         elif self.option == 1:
             self.name_lan = 'en'
+            self.trol = open(self.directory + '/' + 'en' + self.name_file)
+            for ex in self.trol.readlines():
+                self.spp.append(ex)
             print('EU')
             symbol_en = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
                          'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
@@ -267,6 +272,7 @@ class MyWindow(QtGui.QWidget):
         else:
 
             self.bro = ''.join(self.spp).split()
+            print(self.bro)
             t =[]
 
             for j in [self.text_decrypt.lower()[i:i+self.ui.spinBox_quantity_symbol.value()] for i in range(0, len(self.text_decrypt), self.ui.spinBox_quantity_symbol.value())]:
@@ -274,7 +280,6 @@ class MyWindow(QtGui.QWidget):
                     for l in self.bro[z:z+1]:
                         if j == l:
                             t.append(self.symbol[z])
-
 
             self.ui.textEdit_output_decrypt.setPlainText(''.join(t))
 
