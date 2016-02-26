@@ -7,7 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt4 import QtCore, QtGui
-import sys, os
+import sys, os, random
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -876,12 +876,14 @@ class Ui_Enigma(QtGui.QWidget):
         self.tabWidget.setCurrentIndex(2)
         QtCore.QObject.connect(self.radioButton_manually, QtCore.SIGNAL(_fromUtf8("clicked()")), self.manualiti)
         QtCore.QObject.connect(self.radioButton_auto, QtCore.SIGNAL(_fromUtf8("clicked()")), self.auto_gen)
+        QtCore.QObject.connect(self.pushButton_generate, QtCore.SIGNAL(_fromUtf8("clicked()")), self.generator)
         QtCore.QObject.connect(self.pushButton_exit, QtCore.SIGNAL(_fromUtf8("clicked()")), Enigma.close)
         QtCore.QObject.connect(self.pushButton_save, QtCore.SIGNAL(_fromUtf8("clicked()")), self.create_file)
         QtCore.QObject.connect(self.spinBox_quantity_symbol, QtCore.SIGNAL(_fromUtf8("valueChanged(int)")), self.lokomotiv)
         QtCore.QObject.connect(self.comboBox_lang, QtCore.SIGNAL(_fromUtf8("currentIndexChanged(int)")), self.symbols)
         QtCore.QObject.connect(self.pushButton_encrypt, QtCore.SIGNAL(_fromUtf8("clicked()")), self.encrypt)
         QtCore.QObject.connect(self.pushButton_decrypt, QtCore.SIGNAL(_fromUtf8("clicked()")), self.decrypt)
+
         QtCore.QMetaObject.connectSlotsByName(Enigma)
 
     def retranslateUi(self, Enigma):
@@ -976,12 +978,14 @@ class Ui_Enigma(QtGui.QWidget):
 
         default_lang = 0
         default_len = 2
+        self.default_len = default_len
 
         self.lokomotiv(default_len)
 
         self.option = default_lang
         self.symbols(default_lang)
         self.spinBox_quantity_symbol.setProperty('value', default_len)
+
 
     '''Quantity symbol'''
     def lokomotiv(self, value):
@@ -1045,7 +1049,6 @@ class Ui_Enigma(QtGui.QWidget):
 
     '''Create file'''
     def create_file(self):
-        #self.emit = QtGui.QFileDialog.getSaveFileName(parent = None)
         self.k = []
         n = [self.lineEdit_num_0.text(),
              self.lineEdit_num_1.text(),
@@ -1069,7 +1072,8 @@ class Ui_Enigma(QtGui.QWidget):
              self.lineEdit_32.text()]
 
         s = [self.lineEdit_sym_0.text(),self.lineEdit_sym_1.text(),self.lineEdit_sym_2.text(),self.lineEdit_sym_3.text(),self.lineEdit_sym_4.text(),
-             self.lineEdit_sym_5.text(),self.lineEdit_sym_6.text(),self.lineEdit_sym_7.text(),self.lineEdit_sym_8.text(),self.lineEdit_sym_9.text()]
+             self.lineEdit_sym_5.text(),self.lineEdit_sym_6.text(),self.lineEdit_sym_7.text(),self.lineEdit_sym_8.text(), self.lineEdit_sym_9.text(),
+             self.lineEdit_sym_10.text(),self.lineEdit_sym_11.text()]
 
         for bi in b:
             if not bi:
@@ -1097,93 +1101,56 @@ class Ui_Enigma(QtGui.QWidget):
             self.trol = open(self.directory + '/' + 'ua' + self.name_file)
             for ex in self.trol.readlines():
                 self.spp.append(ex)
+            self.r = self.spp
             print('UA')
             symbol_ua = ['а', 'б', 'в', 'г', 'ґ', 'д', 'е', 'є', 'ж', 'з', 'и', 'і', 'ї', 'й', 'к', 'л',
                          'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ь', 'ю',
                          'я', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ' ', '!', '?', ',', '.', ':', ';',
                          '(', ')', '@', "'", '\n']
             self.symbol = symbol_ua
-
-            self.lineEdit_26.setDisabled(False)
-            self.lineEdit_27.setDisabled(False)
-            self.lineEdit_28.setDisabled(False)
-            self.lineEdit_29.setDisabled(False)
-            self.lineEdit_30.setDisabled(False)
-            self.lineEdit_31.setDisabled(False)
-            self.lineEdit_32.setDisabled(False)
-
-            self.label_0.setText((symbol_ua[0]+':').upper()),self.label_1.setText((symbol_ua[1]+':').upper())
-            self.label_2.setText((symbol_ua[2]+':').upper()),self.label_3.setText((symbol_ua[3]+':').upper())
-            self.label_4.setText((symbol_ua[4]+':').upper()),self.label_5.setText((symbol_ua[5]+':').upper())
-            self.label_6.setText((symbol_ua[6]+':').upper()),self.label_7.setText((symbol_ua[7]+':').upper())
-            self.label_8.setText((symbol_ua[8]+':').upper()),self.label_9.setText((symbol_ua[9]+':').upper())
-            self.label_10.setText((symbol_ua[10]+':').upper()),self.label_11.setText((symbol_ua[11]+':').upper())
-            self.label_12.setText((symbol_ua[12]+':').upper()),self.label_13.setText((symbol_ua[13]+':').upper())
-            self.label_14.setText((symbol_ua[14]+':').upper()),self.label_15.setText((symbol_ua[15]+':').upper())
-            self.label_16.setText((symbol_ua[16]+':').upper()),self.label_17.setText((symbol_ua[17]+':').upper())
-            self.label_18.setText((symbol_ua[18]+':').upper()),self.label_19.setText((symbol_ua[19]+':').upper())
-            self.label_20.setText((symbol_ua[20]+':').upper()), self.label_21.setText((symbol_ua[21]+':').upper())
-            self.label_22.setText((symbol_ua[22]+':').upper()),self.label_23.setText((symbol_ua[23]+':').upper())
-            self.label_24.setText((symbol_ua[24]+':').upper()),self.label_25.setText((symbol_ua[25]+':').upper())
-            self.label_26.setText((symbol_ua[26]+':').upper()),self.label_27.setText((symbol_ua[27]+':').upper())
-            self.label_28.setText((symbol_ua[28]+':').upper()),self.label_29.setText((symbol_ua[29]+':').upper())
-            self.label_30.setText((symbol_ua[30]+':').upper()),self.label_31.setText((symbol_ua[31]+':').upper())
-            self.label_32.setText((symbol_ua[32]+':').upper()),self.label_num_0.setText(symbol_ua[33]+':')
-            self.label_num_1.setText(symbol_ua[34]+':'),self.label_num_2.setText(symbol_ua[35]+':')
-            self.label_num_3.setText(symbol_ua[36]+':'),self.label_num_4.setText(symbol_ua[37]+':')
-            self.label_num_5.setText(symbol_ua[38]+':'),self.label_num_6.setText(symbol_ua[39]+':')
-            self.label_num_7.setText(symbol_ua[40]+':'),self.label_num_8.setText(symbol_ua[41]+':')
-            self.label_num_9.setText(symbol_ua[42]+':'),self.label_sym_0.setText(symbol_ua[43]+':')
-            self.label_sym_1.setText(symbol_ua[44]+':'),self.label_sym_2.setText(symbol_ua[45]+':')
-            self.label_sym_3.setText(symbol_ua[46]+':'),self.label_sym_4.setText(symbol_ua[47]+':')
-            self.label_sym_5.setText(symbol_ua[48]+':'),self.label_sym_6.setText(symbol_ua[49]+':')
-            self.label_sym_7.setText(symbol_ua[50]+':'),self.label_sym_8.setText(symbol_ua[51]+':')
-            self.label_sym_9.setText(symbol_ua[52]+':'),self.label_sym_10.setText(symbol_ua[53]+':')
-            self.label_sym_11.setText('/n:')
+            symbol_gen_ua = ['а', 'б', 'в', 'г', 'ґ', 'д', 'е', 'є', 'ж', 'з', 'и', 'і', 'ї', 'й', 'к', 'л',
+                          'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ь', 'ю',
+                          'я', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '/', '!', '?', ',', '.', ':', ';',
+                          '(', ')', '@', "'", '>']
+            self.symbol_gen = symbol_gen_ua
+            if len(self.spp) == len(symbol_ua):
+                self.output_ua()
+            else:
+                pass
 
         elif self.option == 1:
             self.name_lan = 'en'
+            self.spp=[]
             self.trol = open(self.directory + '/' + 'en' + self.name_file)
             for ex in self.trol.readlines():
                 self.spp.append(ex)
             print('EU')
+            print(len(self.spp))
+
             symbol_en = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
                          'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-                         '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ' ', '!', '?', ',', '.', ':', ';', '(', ')', '@', "'", '\n']
-            self.symbol = symbol_en
+                         '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ' ', '!', '?', ',', '.', ':', ';', '(', ')', '@', "'", "\n"]
+            self.symbol= symbol_en
+            self.symbol_en = symbol_en
+
+            symbol_gen_en = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
+                         'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+                         '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '/', '!', '?', ',', '.', ':', ';', '(', ')', '@', "'", ">"]
+            self.symbol_gen = symbol_gen_en
+            if len(self.spp) == len(symbol_en):
+                self.output_en()
 
             self.label_26.setText(''),self.label_27.setText('')
             self.label_28.setText(''),self.label_29.setText('')
             self.label_30.setText(''),self.label_31.setText('')
+
+            self.lineEdit_26.setText(''),self.lineEdit_27.setText(''),self.lineEdit_28.setText('')
+            self.lineEdit_29.setText(''),self.lineEdit_30.setText(''),self.lineEdit_31.setText(''),self.lineEdit_32.setText('')
+
             self.label_32.setText(''),self.lineEdit_26.setDisabled(True)
             self.lineEdit_27.setDisabled(True),self.lineEdit_28.setDisabled(True)
             self.lineEdit_29.setDisabled(True),self.lineEdit_30.setDisabled(True)
             self.lineEdit_31.setDisabled(True),self.lineEdit_32.setDisabled(True)
-
-            self.label_0.setText((symbol_en[0]+':').upper()),self.label_1.setText((symbol_en[1]+':').upper())
-            self.label_2.setText((symbol_en[2]+':').upper()),self.label_3.setText((symbol_en[3]+':').upper())
-            self.label_4.setText((symbol_en[4]+':').upper()),self.label_5.setText((symbol_en[5]+':').upper())
-            self.label_6.setText((symbol_en[6]+':').upper()),self.label_7.setText((symbol_en[7]+':').upper())
-            self.label_8.setText((symbol_en[8]+':').upper()),self.label_9.setText((symbol_en[9]+':').upper())
-            self.label_10.setText((symbol_en[10]+':').upper()),self.label_11.setText((symbol_en[11]+':').upper())
-            self.label_12.setText((symbol_en[12]+':').upper()),self.label_13.setText((symbol_en[13]+':').upper())
-            self.label_14.setText((symbol_en[14]+':').upper()),self.label_15.setText((symbol_en[15]+':').upper())
-            self.label_16.setText((symbol_en[16]+':').upper()),self.label_17.setText((symbol_en[17]+':').upper())
-            self.label_18.setText((symbol_en[18]+':').upper()),self.label_19.setText((symbol_en[19]+':').upper())
-            self.label_20.setText((symbol_en[20]+':').upper()),self.label_21.setText((symbol_en[21]+':').upper())
-            self.label_22.setText((symbol_en[22]+':').upper()),self.label_23.setText((symbol_en[23]+':').upper())
-            self.label_24.setText((symbol_en[24]+':').upper()),self.label_25.setText((symbol_en[25]+':').upper())
-            self.label_num_0.setText(symbol_en[26]+':'),self.label_num_1.setText(symbol_en[27]+':')
-            self.label_num_2.setText(symbol_en[28]+':'),self.label_num_3.setText(symbol_en[29]+':')
-            self.label_num_4.setText(symbol_en[30]+':'),self.label_num_5.setText(symbol_en[31]+':')
-            self.label_num_6.setText(symbol_en[32]+':'),self.label_num_7.setText(symbol_en[33]+':')
-            self.label_num_8.setText(symbol_en[34]+':'),self.label_num_9.setText(symbol_en[35]+':')
-            self.label_sym_0.setText(symbol_en[36]+':'),self.label_sym_1.setText(symbol_en[37]+':')
-            self.label_sym_2.setText(symbol_en[38]+':'),self.label_sym_3.setText(symbol_en[39]+':')
-            self.label_sym_4.setText(symbol_en[40]+':'),self.label_sym_5.setText(symbol_en[41]+':')
-            self.label_sym_6.setText(symbol_en[42]+':'),self.label_sym_7.setText(symbol_en[43]+':')
-            self.label_sym_8.setText(symbol_en[44]+':'),self.label_sym_9.setText(symbol_en[45]+':')
-            self.label_sym_10.setText(symbol_en[46]+':'),self.label_sym_11.setText('/n:')
 
         elif self.option == 2:
             self.name_lan = 'ru'
@@ -1193,6 +1160,14 @@ class Ui_Enigma(QtGui.QWidget):
             print('RU')
             symbol_ru = []
             self.symbol = symbol_ru
+
+    def file_open(self):
+        self.drop = []
+        self.troling = open(self.directory + '/' + self.name_lan + self.name_file)
+
+        for ex in self.troling.readlines():
+            self.drop.append(ex)
+        print(self.drop)
 
     def encrypt(self):
         lst = []
@@ -1226,8 +1201,7 @@ class Ui_Enigma(QtGui.QWidget):
             self.textEdit_input_decrypt.setStyleSheet("color: rgb(255, 0, 255);")
             self.textEdit_input_decrypt.setPlainText('Error: Введите текст!')
         else:
-
-            self.bro = ''.join(self.spp).split()
+            self.bro = ''.join(self.drop).split()
             t =[]
 
             for j in [self.text_decrypt.lower()[i:i+self.spinBox_quantity_symbol.value()] for i in range(0, len(self.text_decrypt), self.spinBox_quantity_symbol.value())]:
@@ -1235,8 +1209,6 @@ class Ui_Enigma(QtGui.QWidget):
                     for l in self.bro[z:z+1]:
                         if j == l:
                             t.append(self.symbol[z])
-
-            print(''.join(t))
             self.textEdit_output_decrypt.setPlainText(''.join(t))
 
     ''' Save settings to file '''
@@ -1256,7 +1228,8 @@ class Ui_Enigma(QtGui.QWidget):
             for z in k:
                 f.write(str("%s\n" % z))
             f.close()
-        return
+        return self.file_open()
+
 
 
     def manualiti(self):
@@ -1379,8 +1352,139 @@ class Ui_Enigma(QtGui.QWidget):
         self.lineEdit_sym_10.setDisabled(True)
         self.lineEdit_sym_11.setDisabled(True)
 
-        def generate(self):
-            pass
+    def generator(self):
+        print('Generate')
+        t = []
+        m = 0
+        for i in range(len(self.symbol_gen)):
+            t.append(''.join(random.sample(self.symbol_gen, int(self.spinBox_quantity_symbol.value()))))
+            #print(t)
+
+            if len(t) == len(list(set(t))):
+                m +=1
+            else:
+                m -=1
+        if m == len(self.symbol_gen):
+            self.r=list(set(t))
+            #print(m, r)
+            if self.option == 0:
+                self.output_ua()
+            elif self.option == 1:
+                self.output_en()
+            elif self.option == 2:
+                self.output_ru()
+        else:
+            print('return')
+            return self.generator()
+
+
+    def output_ua(self):
+        self.label_0.setText((self.symbol[0]+':').upper()),self.label_1.setText((self.symbol[1]+':').upper())
+        self.label_2.setText((self.symbol[2]+':').upper()),self.label_3.setText((self.symbol[3]+':').upper())
+        self.label_4.setText((self.symbol[4]+':').upper()),self.label_5.setText((self.symbol[5]+':').upper())
+        self.label_6.setText((self.symbol[6]+':').upper()),self.label_7.setText((self.symbol[7]+':').upper())
+        self.label_8.setText((self.symbol[8]+':').upper()),self.label_9.setText((self.symbol[9]+':').upper())
+        self.label_10.setText((self.symbol[10]+':').upper()),self.label_11.setText((self.symbol[11]+':').upper())
+        self.label_12.setText((self.symbol[12]+':').upper()),self.label_13.setText((self.symbol[13]+':').upper())
+        self.label_14.setText((self.symbol[14]+':').upper()),self.label_15.setText((self.symbol[15]+':').upper())
+        self.label_16.setText((self.symbol[16]+':').upper()),self.label_17.setText((self.symbol[17]+':').upper())
+        self.label_18.setText((self.symbol[18]+':').upper()),self.label_19.setText((self.symbol[19]+':').upper())
+        self.label_20.setText((self.symbol[20]+':').upper()), self.label_21.setText((self.symbol[21]+':').upper())
+        self.label_22.setText((self.symbol[22]+':').upper()),self.label_23.setText((self.symbol[23]+':').upper())
+        self.label_24.setText((self.symbol[24]+':').upper()),self.label_25.setText((self.symbol[25]+':').upper())
+        self.label_26.setText((self.symbol[26]+':').upper()),self.label_27.setText((self.symbol[27]+':').upper())
+        self.label_28.setText((self.symbol[28]+':').upper()),self.label_29.setText((self.symbol[29]+':').upper())
+        self.label_30.setText((self.symbol[30]+':').upper()),self.label_31.setText((self.symbol[31]+':').upper())
+        self.label_32.setText((self.symbol[32]+':').upper())
+
+        self.label_num_0.setText(self.symbol[33]+':')
+        self.label_num_1.setText(self.symbol[34]+':'),self.label_num_2.setText(self.symbol[35]+':')
+        self.label_num_3.setText(self.symbol[36]+':'),self.label_num_4.setText(self.symbol[37]+':')
+        self.label_num_5.setText(self.symbol[38]+':'),self.label_num_6.setText(self.symbol[39]+':')
+        self.label_num_7.setText(self.symbol[40]+':'),self.label_num_8.setText(self.symbol[41]+':')
+        self.label_num_9.setText(self.symbol[42]+':')
+
+        self.label_sym_0.setText(self.symbol[43]+':')
+        self.label_sym_1.setText(self.symbol[44]+':'),self.label_sym_2.setText(self.symbol[45]+':')
+        self.label_sym_3.setText(self.symbol[46]+':'),self.label_sym_4.setText(self.symbol[47]+':')
+        self.label_sym_5.setText(self.symbol[48]+':'),self.label_sym_6.setText(self.symbol[49]+':')
+        self.label_sym_7.setText(self.symbol[50]+':'),self.label_sym_8.setText(self.symbol[51]+':')
+        self.label_sym_9.setText(self.symbol[52]+':'),self.label_sym_10.setText(self.symbol[53]+':')
+        self.label_sym_11.setText('/n:')
+
+        self.lineEdit_0.setText(self.r[0]),self.lineEdit_1.setText(self.r[1]),self.lineEdit_2.setText(self.r[2])
+        self.lineEdit_3.setText(self.r[3]),self.lineEdit_4.setText(self.r[4]),self.lineEdit_5.setText(self.r[5])
+        self.lineEdit_6.setText(self.r[6]),self.lineEdit_7.setText(self.r[7]),self.lineEdit_8.setText(self.r[8])
+        self.lineEdit_9.setText(self.r[9]),self.lineEdit_10.setText(self.r[10]),self.lineEdit_11.setText(self.r[11])
+        self.lineEdit_12.setText(self.r[12]),self.lineEdit_13.setText(self.r[13]),self.lineEdit_14.setText(self.r[14])
+        self.lineEdit_15.setText(self.r[15]),self.lineEdit_16.setText(self.r[16]),self.lineEdit_17.setText(self.r[17])
+        self.lineEdit_18.setText(self.r[18]),self.lineEdit_19.setText(self.r[19]),self.lineEdit_20.setText(self.r[20])
+        self.lineEdit_21.setText(self.r[21]),self.lineEdit_22.setText(self.r[22]),self.lineEdit_23.setText(self.r[23])
+        self.lineEdit_24.setText(self.r[24]),self.lineEdit_25.setText(self.r[25]),self.lineEdit_26.setText(self.r[26])
+        self.lineEdit_27.setText(self.r[27]),self.lineEdit_28.setText(self.r[28]),self.lineEdit_29.setText(self.r[29])
+        self.lineEdit_30.setText(self.r[30]),self.lineEdit_31.setText(self.r[31]),self.lineEdit_32.setText(self.r[32])
+
+        self.lineEdit_num_0.setText(self.r[33]),self.lineEdit_num_1.setText(self.r[34]),self.lineEdit_num_2.setText(self.r[35])
+        self.lineEdit_num_3.setText(self.r[36]),self.lineEdit_num_4.setText(self.r[37]),self.lineEdit_num_5.setText(self.r[38])
+        self.lineEdit_num_6.setText(self.r[39]),self.lineEdit_num_7.setText(self.r[40]),self.lineEdit_num_8.setText(self.r[41])
+        self.lineEdit_num_9.setText(self.r[42])
+
+        self.lineEdit_sym_0.setText(self.r[43]),self.lineEdit_sym_1.setText(self.r[44]),self.lineEdit_sym_2.setText(self.r[45])
+        self.lineEdit_sym_3.setText(self.r[46]),self.lineEdit_sym_4.setText(self.r[47]),self.lineEdit_sym_5.setText(self.r[48])
+        self.lineEdit_sym_6.setText(self.r[49]),self.lineEdit_sym_7.setText(self.r[50]),self.lineEdit_sym_8.setText(self.r[51])
+        self.lineEdit_sym_9.setText(self.r[52]),self.lineEdit_sym_10.setText(self.r[53]),self.lineEdit_sym_11.setText(self.r[54])
+
+    def output_en(self):
+        self.label_0.setText((self.symbol_en[0]+':').upper()),self.label_1.setText((self.symbol_en[1]+':').upper())
+        self.label_2.setText((self.symbol_en[2]+':').upper()),self.label_3.setText((self.symbol_en[3]+':').upper())
+        self.label_4.setText((self.symbol_en[4]+':').upper()),self.label_5.setText((self.symbol_en[5]+':').upper())
+        self.label_6.setText((self.symbol_en[6]+':').upper()),self.label_7.setText((self.symbol_en[7]+':').upper())
+        self.label_8.setText((self.symbol_en[8]+':').upper()),self.label_9.setText((self.symbol_en[9]+':').upper())
+        self.label_10.setText((self.symbol_en[10]+':').upper()),self.label_11.setText((self.symbol_en[11]+':').upper())
+        self.label_12.setText((self.symbol_en[12]+':').upper()),self.label_13.setText((self.symbol_en[13]+':').upper())
+        self.label_14.setText((self.symbol_en[14]+':').upper()),self.label_15.setText((self.symbol_en[15]+':').upper())
+        self.label_16.setText((self.symbol_en[16]+':').upper()),self.label_17.setText((self.symbol_en[17]+':').upper())
+        self.label_18.setText((self.symbol_en[18]+':').upper()),self.label_19.setText((self.symbol_en[19]+':').upper())
+        self.label_20.setText((self.symbol_en[20]+':').upper()),self.label_21.setText((self.symbol_en[21]+':').upper())
+        self.label_22.setText((self.symbol_en[22]+':').upper()),self.label_23.setText((self.symbol_en[23]+':').upper())
+        self.label_24.setText((self.symbol_en[24]+':').upper()),self.label_25.setText((self.symbol_en[25]+':').upper())
+
+        self.label_num_0.setText(self.symbol_en[26]+':'),self.label_num_1.setText(self.symbol_en[27]+':')
+        self.label_num_2.setText(self.symbol_en[28]+':'),self.label_num_3.setText(self.symbol_en[29]+':')
+        self.label_num_4.setText(self.symbol_en[30]+':'),self.label_num_5.setText(self.symbol_en[31]+':')
+        self.label_num_6.setText(self.symbol_en[32]+':'),self.label_num_7.setText(self.symbol_en[33]+':')
+        self.label_num_8.setText(self.symbol_en[34]+':'),self.label_num_9.setText(self.symbol_en[35]+':')
+
+        self.label_sym_0.setText(self.symbol_en[36]+':'),self.label_sym_1.setText(self.symbol_en[37]+':')
+        self.label_sym_2.setText(self.symbol_en[38]+':'),self.label_sym_3.setText(self.symbol_en[39]+':')
+        self.label_sym_4.setText(self.symbol_en[40]+':'),self.label_sym_5.setText(self.symbol_en[41]+':')
+        self.label_sym_6.setText(self.symbol_en[42]+':'),self.label_sym_7.setText(self.symbol_en[43]+':')
+        self.label_sym_8.setText(self.symbol_en[44]+':'),self.label_sym_9.setText(self.symbol_en[45]+':')
+        self.label_sym_10.setText(self.symbol_en[46]+':'),self.label_sym_11.setText('/n:')
+
+        self.lineEdit_0.setText(self.r[0]),self.lineEdit_1.setText(self.r[1]),self.lineEdit_2.setText(self.r[2])
+        self.lineEdit_3.setText(self.r[3]),self.lineEdit_4.setText(self.r[4]),self.lineEdit_5.setText(self.r[5])
+        self.lineEdit_6.setText(self.r[6]),self.lineEdit_7.setText(self.r[7]),self.lineEdit_8.setText(self.r[8])
+        self.lineEdit_9.setText(self.r[9]),self.lineEdit_10.setText(self.r[10]),self.lineEdit_11.setText(self.r[11])
+        self.lineEdit_12.setText(self.r[12]),self.lineEdit_13.setText(self.r[13]),self.lineEdit_14.setText(self.r[14])
+        self.lineEdit_15.setText(self.r[15]),self.lineEdit_16.setText(self.r[16]),self.lineEdit_17.setText(self.r[17])
+        self.lineEdit_18.setText(self.r[18]),self.lineEdit_19.setText(self.r[19]),self.lineEdit_20.setText(self.r[20])
+        self.lineEdit_21.setText(self.r[21]),self.lineEdit_22.setText(self.r[22]),self.lineEdit_23.setText(self.r[23])
+        self.lineEdit_24.setText(self.r[24]),self.lineEdit_25.setText(self.r[25])
+
+        self.lineEdit_num_0.setText(self.r[26]),self.lineEdit_num_1.setText(self.r[27]),self.lineEdit_num_2.setText(self.r[28])
+        self.lineEdit_num_3.setText(self.r[29]),self.lineEdit_num_4.setText(self.r[30]),self.lineEdit_num_5.setText(self.r[31])
+        self.lineEdit_num_6.setText(self.r[32]),self.lineEdit_num_7.setText(self.r[33]),self.lineEdit_num_8.setText(self.r[34])
+        self.lineEdit_num_9.setText(self.r[35])
+
+        self.lineEdit_sym_0.setText(self.r[36]),self.lineEdit_sym_1.setText(self.r[37]),self.lineEdit_sym_2.setText(self.r[38])
+        self.lineEdit_sym_3.setText(self.r[39]),self.lineEdit_sym_4.setText(self.r[40]),self.lineEdit_sym_5.setText(self.r[41])
+        self.lineEdit_sym_6.setText(self.r[42]),self.lineEdit_sym_7.setText(self.r[43]),self.lineEdit_sym_8.setText(self.r[44])
+        self.lineEdit_sym_9.setText(self.r[45]),self.lineEdit_sym_10.setText(self.r[46]),self.lineEdit_sym_11.setText(self.r[47])
+
+    def output_ru(self):
+        pass
+
 
 if __name__ == '__main__':
     app = QtGui.QApplication(sys.argv)
