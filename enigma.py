@@ -873,7 +873,7 @@ class Ui_Enigma(QtGui.QWidget):
         self.pushButton_exit.setObjectName(_fromUtf8("pushButton_exit"))
 
         self.retranslateUi(Enigma)
-        self.tabWidget.setCurrentIndex(2)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QObject.connect(self.radioButton_manually, QtCore.SIGNAL(_fromUtf8("clicked()")), self.manualiti)
         QtCore.QObject.connect(self.radioButton_auto, QtCore.SIGNAL(_fromUtf8("clicked()")), self.auto_gen)
         QtCore.QObject.connect(self.pushButton_generate, QtCore.SIGNAL(_fromUtf8("clicked()")), self.generator)
@@ -975,6 +975,8 @@ class Ui_Enigma(QtGui.QWidget):
 
         self.file = open(self.directory +'/'+ self.name_file)
         self.spp = []
+        self.drop = []
+
 
         default_lang = 0
         default_len = 2
@@ -1162,12 +1164,12 @@ class Ui_Enigma(QtGui.QWidget):
             self.symbol = symbol_ru
 
     def file_open(self):
-        self.drop = []
+
         self.troling = open(self.directory + '/' + self.name_lan + self.name_file)
 
         for ex in self.troling.readlines():
             self.drop.append(ex)
-        print(self.drop)
+        #print(self.drop)
 
     def encrypt(self):
         lst = []
@@ -1195,6 +1197,10 @@ class Ui_Enigma(QtGui.QWidget):
         '''Конец вывода шифрованого текста'''
 
     def decrypt(self):
+        self.troling = open(self.directory + '/' + self.name_lan + self.name_file)
+
+        for ex in self.troling.readlines():
+            self.drop.append(ex)
 
         self.text_decrypt = self.textEdit_input_decrypt.toPlainText()
         if not self.text_decrypt:
@@ -1229,8 +1235,6 @@ class Ui_Enigma(QtGui.QWidget):
                 f.write(str("%s\n" % z))
             f.close()
         return self.file_open()
-
-
 
     def manualiti(self):
         self.pushButton_generate.setDisabled(True)
@@ -1377,7 +1381,6 @@ class Ui_Enigma(QtGui.QWidget):
             print('return')
             return self.generator()
 
-
     def output_ua(self):
         self.label_0.setText((self.symbol[0]+':').upper()),self.label_1.setText((self.symbol[1]+':').upper())
         self.label_2.setText((self.symbol[2]+':').upper()),self.label_3.setText((self.symbol[3]+':').upper())
@@ -1484,7 +1487,6 @@ class Ui_Enigma(QtGui.QWidget):
 
     def output_ru(self):
         pass
-
 
 if __name__ == '__main__':
     app = QtGui.QApplication(sys.argv)
